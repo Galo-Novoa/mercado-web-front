@@ -20,7 +20,7 @@ export const NavBar = () => {
         <div className="ml-auto flex items-center space-x-5">
           <BalanceWidget />
           <CartIcon />
-          <ProfileMenu avatarUrl="/user.jpg" onLogout={() => {}} />
+          <ProfileMenu /> {/* ✅ Quitar props innecesarias */}
         </div>
       </div>
 
