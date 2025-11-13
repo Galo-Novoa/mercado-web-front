@@ -3,7 +3,7 @@ import { useProducts } from '../../hooks/useProducts';
 import { useCartStore } from '../../../../app/store/cartStore';
 import { useToast } from '../../../../shared/lib/useToast';
 import { ContentPresentation } from './Content.presentation';
-import type { Product } from '../../types/product.types';
+import type { Product, ProductFormData } from '../../types/product.types';
 
 interface ContentContainerProps {
   filteredProducts: Product[];
@@ -23,9 +23,10 @@ export const ContentContainer = ({ filteredProducts }: ContentContainerProps) =>
   const { addToCart } = useCartStore();
   const { toast, showToast, hideToast } = useToast();
 
-  const handleAddProduct = async (newProduct: Omit<Product, 'id'>) => {
+  const handleAddProduct = async (productData: ProductFormData) => {
     try {
-      await addNewProduct(newProduct);
+      // ✅ CORREGIDO: Usar addNewProduct que acepta ProductFormData
+      await addNewProduct(productData);
       showToast("Producto agregado exitosamente", "success");
     } catch {
       showToast("Error al agregar el producto", "error");

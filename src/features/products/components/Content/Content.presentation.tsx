@@ -2,7 +2,7 @@
 import { AddButton } from '../AddButton';
 import { ProductCard } from '../ProductCard';
 import { LoadingSpinner, ErrorMessage, Toast } from '../../../../shared/ui';
-import type { Product } from '../../types/product.types';
+import type { Product, ProductFormData } from '../../types/product.types';
 
 interface ContentPresentationProps {
   loading: boolean;
@@ -11,7 +11,7 @@ interface ContentPresentationProps {
   toast: any;
   onRetry: () => void;
   onHideToast: () => void;
-  onAddProduct: (product: Omit<Product, 'id'>) => void;
+  onAddProduct: (productData: ProductFormData) => void;
   onDeleteProduct: (id: number) => void;
   onUpdateProduct: (id: number, updatedFields: Partial<Product>) => void;
   onAddToCart: (productId: number) => void;

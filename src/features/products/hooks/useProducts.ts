@@ -1,6 +1,7 @@
+// ./src/features/products/hooks/useProducts.ts
 import { useState, useEffect } from "react";
 import { productService } from '../services/productService';
-import type { Product } from '../types/product.types';
+import type { Product, ProductFormData } from '../types/product.types';
 
 export const useProducts = () => {
   const [products, setProducts] = useState<(Product & { _ts?: number })[]>([]);
@@ -25,9 +26,9 @@ export const useProducts = () => {
     }
   };
 
-  const addNewProduct = async (productData: Omit<Product, "id">) => {
+  const addNewProduct = async (productData: ProductFormData) => {
     try {
-      const saved = await productService.addProduct(productData);
+      const saved = await productService.addNewProduct(productData);
       setProducts((prev) => [saved, ...prev]);
       return saved;
     } catch (err) {

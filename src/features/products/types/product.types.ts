@@ -34,4 +34,8 @@ export interface ProductFormData {
   imageFile?: File | null;
   sale: number;
   categoryId?: number;
+  image?: string;
+  rating?: number;
+  publisher?: string;
+  dateAdded?: string;
 }

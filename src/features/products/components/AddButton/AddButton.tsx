@@ -3,10 +3,10 @@ import { Plus, X } from "lucide-react";
 import { useState } from "react";
 import { AddForm } from '../AddForm';
 import { motion, AnimatePresence } from "framer-motion";
-import type { Product } from '../../types/product.types';
+import type { ProductFormData } from '../../types/product.types';
 
 interface AddButtonProps {
-  onAdd: (newProduct: Omit<Product, "id">) => void;
+  onAdd: (productData: ProductFormData) => void;
 }
 
 export const AddButton = ({ onAdd }: AddButtonProps) => {
@@ -16,8 +16,8 @@ export const AddButton = ({ onAdd }: AddButtonProps) => {
     setShowForm(false);
   };
 
-  const handleAdd = (newProduct: Omit<Product, "id">) => {
-    onAdd(newProduct);
+  const handleAdd = (productData: ProductFormData) => {
+    onAdd(productData);
     setShowForm(false);
   };
 

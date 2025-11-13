@@ -1,13 +1,12 @@
 // ./src/features/products/components/AddForm/AddForm.tsx
 import { useState, type FormEvent } from "react";
-import type { Product, ProductFormData } from '../../types/product.types';
-import { productService } from '../../services/productService';
+import type { ProductFormData } from '../../types/product.types';
 import { useFormValidation } from '../../../../shared/lib/useFormValidation';
 import { useCategories } from '../../../../features/categories';
 import { Loader2 } from "lucide-react";
 
 interface AddFormProps {
-  onAdd: (newProduct: Omit<Product, "id">) => void;
+  onAdd: (productData: ProductFormData) => void;
   onClose?: () => void;
 }
 
@@ -41,13 +40,7 @@ export const AddForm = ({ onAdd, onClose }: AddFormProps) => {
         categoryId: categoryId ? Number(categoryId) : undefined,
       };
 
-      const created = await productService.addNewProduct(productData);
-
-      // Remove id before calling onAdd since onAdd expects Omit<Product, "id">
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { id, ...productWithoutId } = created;
-
-      onAdd(productWithoutId);
+      await onAdd(productData);
       
       // Reset form
       setName("");

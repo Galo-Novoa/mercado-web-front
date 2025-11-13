@@ -1,25 +1,41 @@
-import { authService } from '../services/authService';
+// ./src/features/auth/utils/requestInterceptor.ts
+import { authService } from "../services/authService";
 
-// Interceptor global para agregar token a las requests
+// Guardar referencia al fetch original
 const originalFetch = window.fetch;
 
 window.fetch = async (input: RequestInfo | URL, init?: RequestInit) => {
-  const token = authService.getToken();
-  
-  const headers = new Headers(init?.headers);
-  
-  if (token && !headers.has('Authorization')) {
-    headers.set('Authorization', `Bearer ${token}`);
-  }
-  
-  if (!headers.has('Content-Type') && init?.method !== 'GET') {
-    headers.set('Content-Type', 'application/json');
-  }
+	const url =
+		typeof input === "string"
+			? input
+			: input instanceof URL
+			? input.href
+			: input.url;
 
-  const config: RequestInit = {
-    ...init,
-    headers,
-  };
+	// ✅ EXCLUIR Cloudinary del interceptor
+	if (url && url.includes("cloudinary.com")) {
+		return originalFetch(input, init);
+	}
 
-  return originalFetch(input, config);
+	const token = authService.getToken();
+
+	const headers = new Headers(init?.headers);
+
+	if (token && !headers.has("Authorization")) {
+		headers.set("Authorization", `Bearer ${token}`);
+	}
+
+	if (!headers.has("Content-Type") && init?.method !== "GET") {
+		headers.set("Content-Type", "application/json");
+	}
+
+	const config: RequestInit = {
+		...init,
+		headers,
+	};
+
+	return originalFetch(input, config);
 };
+
+// Exportar originalFetch para usar en cloudinaryService
+export { originalFetch };

@@ -1,4 +1,3 @@
-// ./src/features/products/components/ProductDetailPage/ProductDetailPage.container.tsx
 import { useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { Star } from 'lucide-react';
@@ -20,7 +19,6 @@ export const ProductDetailPageContainer = () => {
 
   const product = products.find(p => p.id === Number(id));
 
-  // ✅ FIX: Default parameters instead of reassignment
   const safeRating = product?.rating ?? 0;
   const safePrice = product?.price ?? 0;
   const safeSale = product?.sale ?? 0;
@@ -75,7 +73,6 @@ export const ProductDetailPageContainer = () => {
 
   const discountedPrice = calculateDiscountedPrice(safePrice, safeSale);
 
-  // Array de imágenes con IDs únicos
   const productImages = product ? Array.from({ length: 3 }, (_, i) => ({
     id: `image-${i}`,
     url: product.image

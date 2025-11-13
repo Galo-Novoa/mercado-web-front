@@ -103,7 +103,7 @@ export const ProductCardContainer: React.FC<ProductCardContainerProps> = ({
     }
   };
 
-  return (
+ return (
     <ProductCardPresentation
       product={product}
       isHovered={isHovered}
@@ -136,6 +136,7 @@ export const ProductCardContainer: React.FC<ProductCardContainerProps> = ({
         e.stopPropagation();
         handleCancel();
       }}
+      onSetImageError={setImageError}
       calculateDiscountedPrice={calculateDiscountedPrice}
       formatPrice={formatPrice}
       formatDate={formatDate}
